@@ -1,21 +1,24 @@
+import { Provider } from 'react-redux';
+import {BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import store from './store';
 import './App.css';
-
+import StartGame from './components/intro/StartGame';
+import AddPlayer from './components/intro/AddPlayer';
+import RiskGame from './components/game/RiskGame';
 function App() {
   return (
-    <div className="App">
-      <h3>Risk Game</h3>
-      <form id="start_game">
-        <div class="form-group">
-          <label for="risk_tag">Start a New Game</label>
-          <input type="text" 
-                class="form-control"  
-                placeholder="Unique game tag"
-                id="risk_tag"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Start Game</button>
-      </form> 
-    </div>
+    <Provider store={store}>
+    <Router>
+      <div className="app">
+        <h3>Risk Game</h3>
+        <Routes>
+          <Route path="" element={< StartGame />} />
+          <Route path="add_players/:tag" element={< AddPlayer />} />
+          <Route path=":tag" element={< RiskGame />} />
+        </Routes>
+      </div>
+    </Router>
+    </Provider>
   );
 }
 

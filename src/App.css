@@ -1,14 +1,24 @@
-#start_game {
+.start_form, ul {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
 }
 
+ul {
+  list-style-type: none;
+}
 
-.App {
+.app {
   text-align: center;
 }
 
-#start_game :is(input,button) {
+.start_form :is(input,button), .heading {
   margin-top: 10px;
 }
+
+.start_game_button {
+  float: right;
+}
+
+
+
