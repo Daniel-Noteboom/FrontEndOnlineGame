@@ -10,7 +10,7 @@ function App() {
     <Provider store={store}>
     <Router>
       <div className="app">
-        <h3>Risk Game</h3>
+        <h5>Risk Game</h5>
         <Routes>
           <Route path="" element={< StartGame />} />
           <Route path="add_players/:tag" element={< AddPlayer />} />

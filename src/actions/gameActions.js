@@ -31,6 +31,10 @@ export const startRiskGame = (tag, navigate) => async dispatch => {
 
 export const getRiskGame = (tag, navigate) => async dispatch => {
     const res = await axios.get(`http://localhost:8080/game/risk/${tag}`);
-    navigate(`/${tag}`, {state: {riskGame: res.data}});
+    //navigate(`/${tag}`, {state: {riskGame: res.data}});
+    dispatch({
+        type: GAME,
+        payload: res.data
+    })
     //Currently no errors but want to implement later  
 }

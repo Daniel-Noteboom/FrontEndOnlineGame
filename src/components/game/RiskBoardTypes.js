@@ -1,10 +1,11 @@
 export const X_OFFSET = -5;
 export const Y_OFFSET = 5;
+export const LARGE_NUMBER_OFFSET = -3;
 export const COUNTRY_COORDINATES= 
 {
     eastern_australia: {x: 880, y: 550},
     indonesia: {x: 788, y: 476},
-    new_guinea: {x: 847, y: 765},
+    new_guinea: {x: 847, y: 465},
     alaska: {x: 229, y: 197},
     ontario: {x: 336, y: 251},
     northwest_territory: {x: 294, y: 202},
