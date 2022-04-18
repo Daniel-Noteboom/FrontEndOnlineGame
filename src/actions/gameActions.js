@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, PLAYER_NAMES} from "./types";
+import { GET_ERRORS, PLAYER_NAMES, RISK_GAME} from "./types";
 
 export const createRiskGame = (tag, navigate) => async dispatch => {
     try {
@@ -33,7 +33,17 @@ export const getRiskGame = (tag, navigate) => async dispatch => {
     const res = await axios.get(`http://localhost:8080/game/risk/${tag}`);
     //navigate(`/${tag}`, {state: {riskGame: res.data}});
     dispatch({
-        type: GAME,
+        type: RISK_GAME,
+        payload: res.data
+    })
+    //Currently no errors but want to implement later  
+}
+
+export const reinforceTroops = (tag, country, troops) => async dispatch => {
+    
+    const res = await axios.post(`http://localhost:8080/game/risk/${tag}/reinforce_troops/${country}/${troops}`);
+    dispatch({
+        type: RISK_GAME,
         payload: res.data
     })
     //Currently no errors but want to implement later  

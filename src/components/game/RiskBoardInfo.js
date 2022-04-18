@@ -7,7 +7,7 @@ export default function(props) {
         <h5 className="players"> Players</h5>
         <ul className="players">
         {players.map(player => (
-            <li key={player.name} style={{ border: "3px solid " + player.color }}>{player.name} </li>
+            <li key={player.name +  " " + player.color} style={{ border: "3px solid " + player.color }}>{player.name} </li>
         ))}
         </ul>
         <p className = "current_info"> CurrentPhase: {phase} </p>

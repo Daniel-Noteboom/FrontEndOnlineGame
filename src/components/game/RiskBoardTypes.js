@@ -1,6 +1,22 @@
 export const X_OFFSET = -5;
 export const Y_OFFSET = 5;
 export const LARGE_NUMBER_OFFSET = -3;
+export const X_OFFSET_BOX = 12;
+export const Y_OFFSET_BOX = 70;
+export const DESCRIPTIONS = {
+    DRAFT: {
+        name: "reinforce_troops",
+        description: "Reinforce Troops"
+    },
+    ATTACK: {
+        name: "attack_troops",
+        description: "Attack Troops"
+    },
+    FORTIFY: {
+        name: "fortify_troops",
+        description: "Fortify Troops"
+    }
+}
 export const COUNTRY_COORDINATES= 
 {
     eastern_australia: {x: 880, y: 550},

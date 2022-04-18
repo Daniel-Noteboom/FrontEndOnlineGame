@@ -1,8 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import { clickSVG } from "./RiskBoardClick";
 import { COUNTRY_COORDINATES, LARGE_NUMBER_OFFSET, X_OFFSET, Y_OFFSET } from "./RiskBoardTypes";
-import { ClickSVG } from "./RiskBoardHelper";
-
-export default function RiskBoard(props) {
+import PropTypes from "prop-types"
+function RiskBoard(props) {
   const coord = COUNTRY_COORDINATES;
   const {countries, colors} = props;
   Object.keys(coord).forEach(country => {
@@ -18,7 +19,7 @@ export default function RiskBoard(props) {
       height="519.068"
       enableBackground="new"
       version="1"
-      onClick={ClickSVG}
+      onClick={props.clickSVG}
     >
       <defs>
         <linearGradient>
@@ -1324,7 +1325,8 @@ export default function RiskBoard(props) {
           overflow="visible"
           visibility="visible"
           id="eastern_australia"
-        ></path>
+        >
+        </path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.eastern_australia.x} 
                                                          cy = {coord.eastern_australia.y} r= "12" /> 
         <text fill="black" fontSize="14" x = {coord.eastern_australia.x + X_OFFSET } 
@@ -2191,3 +2193,8 @@ export default function RiskBoard(props) {
     </svg>
   );
 }
+
+RiskBoard.propTypes = {
+  clickSVG: PropTypes.func.isRequired
+}
+export default connect(null, {clickSVG})(RiskBoard)

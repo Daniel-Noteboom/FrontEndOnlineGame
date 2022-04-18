@@ -39,4 +39,7 @@ ul.players li, .current_info {
   border: 3px solid black;
 }
 
+.btn-troops {
+  display: block;
+}
 
