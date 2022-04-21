@@ -16,9 +16,6 @@ function RiskGame(props) {
 
   const riskGame = location.state == null ? props.riskGame.game : location.state.riskGame;
   const {countryClicked} = props.riskGame;
-  const country = countryClicked != null ? countryClicked.country
-                                          .split("_").reduce((s1,s2) => s1 + " " + 
-                                          s2.charAt(0).toUpperCase() + s2.slice(1), "").slice(1) : null;
 
   const gameEmpty = riskGame === undefined;
   useEffect(() => {
@@ -26,6 +23,15 @@ function RiskGame(props) {
       props.getRiskGame(tag, navigate);
     }
   })
+
+  const showPopUpBox = (countries_processed) => {
+    const {samePlayer} = countryClicked;
+    if(riskGame.phase === "DRAFT") {
+      return samePlayer;
+    } else  {
+      return countryClicked.secondCountryClicked;
+    }
+  }
   const countries = gameEmpty ? {} : riskGame.board.countryNames;
   const countries_processed = gameEmpty ? {} : Object.keys(countries).reduce(
     (a,v) => ({ ...a, [v.toLowerCase().split(" ").join("_")]: countries[v]}), {});
@@ -35,11 +41,15 @@ function RiskGame(props) {
     {!gameEmpty ? 
       <div>  
         <RiskBoard countries={countries_processed} 
-                  colors = {colors}> 
+                  colors = {colors}
+                  game = {riskGame}
+                  firstCountry = {countryClicked && countryClicked.firstCountryClicked ? countryClicked.country : null}>
         </RiskBoard> 
-        {countryClicked && 
-          countries[country].occupant.name === riskGame.currentPlayerName && 
-           <RiskPopUpBox riskGame = {props.riskGame}></RiskPopUpBox> }
+        { countryClicked &&
+          showPopUpBox(countries_processed) && 
+           <RiskPopUpBox riskGame = {props.riskGame}
+                          countryClicked= {countryClicked}
+                          countries={countries_processed}></RiskPopUpBox> }
         <RiskBoardInfo players={riskGame.players} 
                        phase = {riskGame.phase}
                        currentPlayer={riskGame.currentPlayerName}

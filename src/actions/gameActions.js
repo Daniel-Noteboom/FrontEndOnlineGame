@@ -48,3 +48,13 @@ export const reinforceTroops = (tag, country, troops) => async dispatch => {
     })
     //Currently no errors but want to implement later  
 }
+
+export const attackTroops = (tag, attackCountry, defendCountry, troops) => async dispatch => {
+    
+    const res = await axios.post(`http://localhost:8080/game/risk/${tag}/attack/${attackCountry}/${troops}/${defendCountry}`);
+    dispatch({
+        type: RISK_GAME,
+        payload: res.data
+    })
+    //Currently no errors but want to implement later  
+}

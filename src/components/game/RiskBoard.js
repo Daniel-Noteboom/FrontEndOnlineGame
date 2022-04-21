@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { clickSVG } from "./RiskBoardClick";
-import { COUNTRY_COORDINATES, LARGE_NUMBER_OFFSET, X_OFFSET, Y_OFFSET } from "./RiskBoardTypes";
+import { COUNTRY_COORDINATES, LARGE_NUMBER_OFFSET, TOP_LEVEL_ID, X_OFFSET, Y_OFFSET } from "./RiskBoardTypes";
 import PropTypes from "prop-types"
+import { clickSVG } from "../../actions/RiskBoardClick";
 function RiskBoard(props) {
   const coord = COUNTRY_COORDINATES;
-  const {countries, colors} = props;
+  const {countries, colors, game, firstCountry} = props;
   Object.keys(coord).forEach(country => {
     if(countries[country].troopCount >= 10) {
       coord[country].x -= LARGE_NUMBER_OFFSET;
@@ -19,7 +19,8 @@ function RiskBoard(props) {
       height="519.068"
       enableBackground="new"
       version="1"
-      onClick={props.clickSVG}
+      onClick={(e) => props.clickSVG(e, game, countries, firstCountry)}    
+      id={TOP_LEVEL_ID}
     >
       <defs>
         <linearGradient>
