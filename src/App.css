@@ -20,14 +20,16 @@ ul {
   float: right;
 }
 
-.players  {
+.players, .cards  {
   text-align: left;
   margin-left: 20%;
-  margin-top: -10px;
-  padding-left: 0px;
 }
 h5.players {
   margin-bottom: 20px;
+}
+
+.cards h5 {
+  display: inline;
 }
 ul.players li, .current_info {
   float: left;
@@ -41,5 +43,32 @@ ul.players li, .current_info {
 
 .btn-troops {
   display: block;
+}
+
+.cards li {
+  width: 300px;
+}
+
+.cards {
+  float: left;
+  margin-top: 0px;
+  margin-bottom: 10px
+}
+
+.cards button {
+  margin-bottom: 10px;
+}
+
+.cards ul {
+  padding-left: 0px;
+  float: left;
+}
+
+.cards h5 {
+  margin-right: 10px;
+}
+
+.cards-auto-button {
+  margin-right: 10px;
 }
 

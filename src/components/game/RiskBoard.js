@@ -7,9 +7,8 @@ function RiskBoard(props) {
   const coord = COUNTRY_COORDINATES;
   const {countries, colors, game, firstCountry} = props;
   Object.keys(coord).forEach(country => {
-    if(countries[country].troopCount >= 10) {
-      coord[country].x -= LARGE_NUMBER_OFFSET;
-    }
+    coord[country].extra_offset =  countries[country].troopCount >= 10 ? LARGE_NUMBER_OFFSET : 0;
+    
   })
   return (
     <svg
@@ -19,9 +18,10 @@ function RiskBoard(props) {
       height="519.068"
       enableBackground="new"
       version="1"
-      onClick={(e) => props.clickSVG(e, game, countries, firstCountry)}    
+      onClick={game.needTurnInCards ? () => {} : (e) => props.clickSVG(e, game, countries, firstCountry)}
       id={TOP_LEVEL_ID}
     >
+
       <defs>
         <linearGradient>
           <stop offset="0" stopColor="#000" stopOpacity="0"></stop>
@@ -1330,7 +1330,7 @@ function RiskBoard(props) {
         </path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.eastern_australia.x} 
                                                          cy = {coord.eastern_australia.y} r= "12" /> 
-        <text fill="black" fontSize="14" x = {coord.eastern_australia.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x = {coord.eastern_australia.x + X_OFFSET + coord.eastern_australia.extra_offset } 
                                          y = {coord.eastern_australia.y + Y_OFFSET}> 
                                         {countries.eastern_australia.troopCount}</text>
         <path
@@ -1346,7 +1346,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.indonesia.x} 
                                                          cy = {coord.indonesia.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.indonesia.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.indonesia.x + X_OFFSET + coord.indonesia.extra_offset } 
                                          y = {coord.indonesia.y + Y_OFFSET}> 
                                         {countries.indonesia.troopCount}</text>
         <path
@@ -1362,7 +1362,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.new_guinea.x} 
                                                          cy = {coord.new_guinea.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.new_guinea.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.new_guinea.x + X_OFFSET + coord.new_guinea.extra_offset } 
                                          y = {coord.new_guinea.y + Y_OFFSET}> 
                                         {countries.new_guinea.troopCount}</text>
         <path
@@ -1378,7 +1378,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.alaska.x} 
                                                          cy = {coord.alaska.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.alaska.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.alaska.x + X_OFFSET + coord.alaska.extra_offset } 
                                          y = {coord.alaska.y + Y_OFFSET}> 
                                         {countries.alaska.troopCount}</text>
         <path
@@ -1394,7 +1394,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.ontario.x} 
                                                          cy = {coord.ontario.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.ontario.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.ontario.x + X_OFFSET + coord.ontario.extra_offset } 
                                          y = {coord.ontario.y + Y_OFFSET}> 
                                         {countries.ontario.troopCount}</text>
         <path
@@ -1410,7 +1410,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.northwest_territory.x} 
                                                          cy = {coord.northwest_territory.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.northwest_territory.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.northwest_territory.x + X_OFFSET + coord.northwest_territory.extra_offset } 
                                          y = {coord.northwest_territory.y + Y_OFFSET}> 
                                         {countries.northwest_territory.troopCount}</text>
         <path
@@ -1426,7 +1426,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.venezuela.x} 
                                                          cy = {coord.venezuela.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.venezuela.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.venezuela.x + X_OFFSET + coord.venezuela.extra_offset } 
                                          y = {coord.venezuela.y + Y_OFFSET}> 
                                         {countries.venezuela.troopCount}</text>
         <path
@@ -1442,7 +1442,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.madagascar.x} 
                                                          cy = {coord.madagascar.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.madagascar.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.madagascar.x + X_OFFSET + coord.madagascar.extra_offset } 
                                          y = {coord.madagascar.y + Y_OFFSET}> 
                                         {countries.madagascar.troopCount}</text>
         <path
@@ -1458,7 +1458,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.north_africa.x} 
                                                          cy = {coord.north_africa.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.north_africa.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.north_africa.x + X_OFFSET + coord.north_africa.extra_offset } 
                                          y = {coord.north_africa.y + Y_OFFSET}> 
                                         {countries.north_africa.troopCount}</text>
         <path
@@ -1476,7 +1476,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.greenland.x} 
                                                          cy = {coord.greenland.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.greenland.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.greenland.x + X_OFFSET + coord.greenland.extra_offset } 
                                          y = {coord.greenland.y + Y_OFFSET}> 
                                         {countries.greenland.troopCount}</text>
         <path
@@ -1501,7 +1501,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.iceland.x} 
                                                          cy = {coord.iceland.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.iceland.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.iceland.x + X_OFFSET + coord.iceland.extra_offset } 
                                          y = {coord.iceland.y + Y_OFFSET}> 
                                         {countries.iceland.troopCount}</text>
         <path
@@ -1526,7 +1526,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.great_britain.x} 
                                                          cy = {coord.great_britain.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.great_britain.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.great_britain.x + X_OFFSET + coord.great_britain.extra_offset } 
                                          y = {coord.great_britain.y + Y_OFFSET}> 
                                         {countries.great_britain.troopCount}</text>
         <path
@@ -1547,7 +1547,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.scandinavia.x} 
                                                          cy = {coord.scandinavia.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.scandinavia.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.scandinavia.x + X_OFFSET + coord.scandinavia.extra_offset } 
                                          y = {coord.scandinavia.y + Y_OFFSET}> 
                                         {countries.scandinavia.troopCount}</text>
         <path
@@ -1565,7 +1565,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.japan.x} 
                                                          cy = {coord.japan.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.japan.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.japan.x + X_OFFSET + coord.japan.extra_offset } 
                                          y = {coord.japan.y + Y_OFFSET}> 
                                         {countries.japan.troopCount}</text>
         <path
@@ -1588,7 +1588,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.yakutsk.x} 
                                                          cy = {coord.yakutsk.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.yakutsk.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.yakutsk.x + X_OFFSET + coord.yakutsk.extra_offset } 
                                          y = {coord.yakutsk.y + Y_OFFSET}> 
                                         {countries.yakutsk.troopCount}</text>
         <path
@@ -1611,7 +1611,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.kamchatka.x} 
                                                          cy = {coord.kamchatka.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.kamchatka.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.kamchatka.x + X_OFFSET + coord.kamchatka.extra_offset } 
                                          y = {coord.kamchatka.y + Y_OFFSET}> 
                                         {countries.kamchatka.troopCount}</text>
         <path
@@ -1634,7 +1634,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.siberia.x} 
                                                          cy = {coord.siberia.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.siberia.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.siberia.x + X_OFFSET + coord.siberia.extra_offset } 
                                          y = {coord.siberia.y + Y_OFFSET}> 
                                         {countries.siberia.troopCount}</text>
         <path
@@ -1657,7 +1657,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.ural.x} 
                                                          cy = {coord.ural.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.ural.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.ural.x + X_OFFSET + coord.ural.extra_offset } 
                                          y = {coord.ural.y + Y_OFFSET}> 
                                         {countries.ural.troopCount}</text>
         <path
@@ -1680,7 +1680,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.afghanistan.x} 
                                                          cy = {coord.afghanistan.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.afghanistan.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.afghanistan.x + X_OFFSET + coord.afghanistan.extra_offset } 
                                          y = {coord.afghanistan.y + Y_OFFSET}> 
                                         {countries.afghanistan.troopCount}</text>
         <path
@@ -1703,7 +1703,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.middle_east.x} 
                                                          cy = {coord.middle_east.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.middle_east.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.middle_east.x + X_OFFSET + coord.middle_east.extra_offset } 
                                          y = {coord.middle_east.y + Y_OFFSET}> 
                                         {countries.middle_east.troopCount}</text>
         <path
@@ -1726,7 +1726,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.india.x} 
                                                          cy = {coord.india.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.india.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.india.x + X_OFFSET + coord.india.extra_offset } 
                                          y = {coord.india.y + Y_OFFSET}> 
                                         {countries.india.troopCount}</text>
         <path
@@ -1749,7 +1749,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.siam.x} 
                                                          cy = {coord.siam.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.siam.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.siam.x + X_OFFSET + coord.siam.extra_offset } 
                                          y = {coord.siam.y + Y_OFFSET}> 
                                         {countries.siam.troopCount}</text>
         <path
@@ -1772,7 +1772,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.china.x} 
                                                          cy = {coord.china.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.china.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.china.x + X_OFFSET + coord.china.extra_offset } 
                                          y = {coord.china.y + Y_OFFSET}> 
                                         {countries.china.troopCount}</text>
         <path
@@ -1795,7 +1795,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.mongolia.x} 
                                                          cy = {coord.mongolia.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.mongolia.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.mongolia.x + X_OFFSET + coord.mongolia.extra_offset } 
                                          y = {coord.mongolia.y + Y_OFFSET}> 
                                         {countries.mongolia.troopCount}</text>
         <path
@@ -1818,7 +1818,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.irkutsk.x} 
                                                          cy = {coord.irkutsk.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.irkutsk.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.irkutsk.x + X_OFFSET + coord.irkutsk.extra_offset } 
                                          y = {coord.irkutsk.y + Y_OFFSET}> 
                                         {countries.irkutsk.troopCount}</text>
         <path
@@ -1841,7 +1841,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.ukraine.x} 
                                                          cy = {coord.ukraine.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.ukraine.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.ukraine.x + X_OFFSET + coord.ukraine.extra_offset } 
                                          y = {coord.ukraine.y + Y_OFFSET}> 
                                         {countries.ukraine.troopCount}</text>
         <path
@@ -1864,7 +1864,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.southern_europe.x} 
                                                          cy = {coord.southern_europe.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.southern_europe.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.southern_europe.x + X_OFFSET + coord.southern_europe.extra_offset } 
                                          y = {coord.southern_europe.y + Y_OFFSET}> 
                                         {countries.southern_europe.troopCount}</text>
         <path
@@ -1887,7 +1887,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.western_europe.x} 
                                                          cy = {coord.western_europe.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.western_europe.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.western_europe.x + X_OFFSET + coord.western_europe.extra_offset } 
                                          y = {coord.western_europe.y + Y_OFFSET}> 
                                         {countries.western_europe.troopCount}</text>
         <path
@@ -1910,7 +1910,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.northern_europe.x} 
                                                          cy = {coord.northern_europe.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.northern_europe.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.northern_europe.x + X_OFFSET + coord.northern_europe.extra_offset } 
                                          y = {coord.northern_europe.y + Y_OFFSET}> 
                                         {countries.northern_europe.troopCount}</text>
         <path
@@ -1926,7 +1926,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.egypt.x} 
                                                          cy = {coord.egypt.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.egypt.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.egypt.x + X_OFFSET + coord.egypt.extra_offset } 
                                          y = {coord.egypt.y + Y_OFFSET}> 
                                         {countries.egypt.troopCount}</text>
         <path
@@ -1942,7 +1942,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.east_africa.x} 
                                                          cy = {coord.east_africa.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.east_africa.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.east_africa.x + X_OFFSET + coord.east_africa.extra_offset } 
                                          y = {coord.east_africa.y + Y_OFFSET}> 
                                         {countries.east_africa.troopCount}</text>
         <path
@@ -1958,7 +1958,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.congo.x} 
                                                          cy = {coord.congo.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.congo.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.congo.x + X_OFFSET + coord.congo.extra_offset } 
                                          y = {coord.congo.y + Y_OFFSET}> 
                                         {countries.congo.troopCount}</text>
         <path
@@ -1975,7 +1975,7 @@ function RiskBoard(props) {
         </path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.south_africa.x} 
                                                          cy = {coord.south_africa.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.south_africa.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.south_africa.x + X_OFFSET + coord.south_africa.extra_offset } 
                                          y = {coord.south_africa.y + Y_OFFSET}> 
                                         {countries.south_africa.troopCount}</text>
 
@@ -1992,7 +1992,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.brazil.x} 
                                                          cy = {coord.brazil.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.brazil.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.brazil.x + X_OFFSET + coord.brazil.extra_offset } 
                                          y = {coord.brazil.y + Y_OFFSET}> 
                                         {countries.brazil.troopCount}</text>
         <path
@@ -2008,7 +2008,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.argentina.x} 
                                                          cy = {coord.argentina.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.argentina.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.argentina.x + X_OFFSET + coord.argentina.extra_offset } 
                                          y = {coord.argentina.y + Y_OFFSET}> 
                                         {countries.argentina.troopCount}</text>
         <path
@@ -2024,7 +2024,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.eastern_united_states.x} 
                                                          cy = {coord.eastern_united_states.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.eastern_united_states.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.eastern_united_states.x + X_OFFSET + coord.eastern_united_states.extra_offset } 
                                          y = {coord.eastern_united_states.y + Y_OFFSET}> 
                                         {countries.eastern_united_states.troopCount}</text>
         <path
@@ -2040,7 +2040,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.western_united_states.x} 
                                                          cy = {coord.western_united_states.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.western_united_states.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.western_united_states.x + X_OFFSET + coord.western_united_states.extra_offset } 
                                          y = {coord.western_united_states.y + Y_OFFSET}> 
                                         {countries.western_united_states.troopCount}</text>
         <path
@@ -2056,7 +2056,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.quebec.x} 
                                                          cy = {coord.quebec.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.quebec.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.quebec.x + X_OFFSET + coord.quebec.extra_offset } 
                                          y = {coord.quebec.y + Y_OFFSET}> 
                                         {countries.quebec.troopCount}</text>
         <path
@@ -2072,7 +2072,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.central_america.x} 
                                                          cy = {coord.central_america.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.central_america.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.central_america.x + X_OFFSET + coord.central_america.extra_offset } 
                                          y = {coord.central_america.y + Y_OFFSET}> 
                                         {countries.central_america.troopCount}</text>
         <path
@@ -2088,7 +2088,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.peru.x} 
                                                          cy = {coord.peru.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.peru.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.peru.x + X_OFFSET + coord.peru.extra_offset } 
                                          y = {coord.peru.y + Y_OFFSET}> 
                                         {countries.peru.troopCount}</text>
         <path
@@ -2111,7 +2111,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.western_australia.x} 
                                                          cy = {coord.western_australia.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.western_australia.x + X_OFFSET } 
+        <text fill="black" fontSize="14" x= {coord.western_australia.x + X_OFFSET + coord.western_australia.extra_offset } 
                                          y = {coord.western_australia.y + Y_OFFSET}> 
                                         {countries.western_australia.troopCount}</text>
         <path
@@ -2134,7 +2134,7 @@ function RiskBoard(props) {
         ></path>
         <circle fill="white" opacity="1" fillOpacity="1" cx = {coord.alberta.x} 
                                                          cy = {coord.alberta.y} r= "12" /> 
-        <text fill="black" fontSize="14" x= {coord.alberta.x + X_OFFSET} 
+        <text fill="black" fontSize="14" x= {coord.alberta.x + X_OFFSET + coord.alberta.extra_offset} 
                                          y = {coord.alberta.y + Y_OFFSET}> 
                                         {countries.alberta.troopCount}</text>
       </g>
@@ -2191,6 +2191,8 @@ function RiskBoard(props) {
           </text>
         </g>
       </g>
+      {game.needTurnInCards && <rect width="100%" height="100%" fill="black" opacity=".6"/>}
+
     </svg>
   );
 }

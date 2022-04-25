@@ -5,6 +5,7 @@ export const X_OFFSET_BOX = 12;
 export const Y_OFFSET_BOX = 70;
 export const TOP_LEVEL_ID = "top_level_id";
 export const MAX_ATTACK_TROOPS = 3;
+export const SET_ATTACK = "SET_ATTACK";
 export const DESCRIPTIONS = {
     DRAFT: {
         name: "reinforce_troops",
@@ -20,6 +21,11 @@ export const DESCRIPTIONS = {
         name: "fortify_troops",
         description: "Fortify Troops",
         select: "Fortify"
+    },
+    SET_ATTACK: {
+        name: "set_troops",
+        description: "Set Troops",
+        select: "Set"
     }
 }
 export const COUNTRY_COORDINATES= 

@@ -11,7 +11,9 @@ function AddPlayer(props) {
   const {playerNames} = props;
   const onSubmit = (e) =>  {
     e.preventDefault();
-    props.addPlayer(tag, playerName, navigate);
+    const addedPlayerName = playerName;
+    setPlayerName("");
+    props.addPlayer(tag, addedPlayerName, navigate);
   }
 
   const onChange = (e) => {
@@ -37,7 +39,7 @@ function AddPlayer(props) {
       </div>
 
       <button type="submit" className="btn btn-primary add_player_button">Add Player</button>
-      <button onClick ={startGame} className="btn btn-primary start_game_button">Start Game</button>
+      <button type="button" onClick ={startGame} className="btn btn-primary start_game_button">Start Game</button>
     </form> 
     
     <h4 className="heading">Players </h4> 

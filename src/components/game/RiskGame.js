@@ -1,35 +1,50 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getRiskGame } from '../../actions/gameActions';
+import { useNavigate, useParams } from 'react-router-dom';
+import { endAttack, endFortify, getRiskGame, startNewGame } from '../../actions/gameActions';
 import RiskBoard from './RiskBoard'
 import PropTypes from "prop-types"
 import RiskBoardInfo from './RiskBoardInfo';
 import RiskPopUpBox from './RiskPopUpBox';
 
 function RiskGame(props) {
-  const location = useLocation();
   const params = useParams();
   const {tag} = params;
   const navigate = useNavigate();
 
 
-  const riskGame = location.state == null ? props.riskGame.game : location.state.riskGame;
+  const riskGame = props.riskGame.game;
   const {countryClicked} = props.riskGame;
 
   const gameEmpty = riskGame === undefined;
   useEffect(() => {
-    if(location.state == null && props.riskGame.game === undefined) {
+    if(props.riskGame.game === undefined) {
       props.getRiskGame(tag, navigate);
     }
   })
 
+  const endAttack = () => {
+    props.endAttack(tag);
+  }
+
+  const endFortify = () => {
+    props.endFortify(tag);
+  }
+
+  const startNewGame = () => {
+    props.startNewGame(navigate);
+  }
+
   const showPopUpBox = (countries_processed) => {
     const {samePlayer} = countryClicked;
-    if(riskGame.phase === "DRAFT") {
+    if(riskGame.needTurnInCards) {
+      return false;
+    }
+    else if(riskGame.phase === "DRAFT") {
       return samePlayer;
     } else  {
-      return countryClicked.secondCountryClicked;
+      return countryClicked.secondCountryClicked && !(riskGame.phase === "ATTACK" && 
+      countryClicked.firstCountry && countries_processed[countryClicked.firstCountry].troops === 1);
     }
   }
   const countries = gameEmpty ? {} : riskGame.board.countryNames;
@@ -47,15 +62,18 @@ function RiskGame(props) {
         </RiskBoard> 
         { countryClicked &&
           showPopUpBox(countries_processed) && 
-           <RiskPopUpBox riskGame = {props.riskGame}
+           <RiskPopUpBox game = {riskGame}
                           countryClicked= {countryClicked}
                           countries={countries_processed}></RiskPopUpBox> }
-        <RiskBoardInfo players={riskGame.players} 
-                       phase = {riskGame.phase}
-                       currentPlayer={riskGame.currentPlayerName}
-                       reinforceTroops={riskGame.currentReinforcementTroopsNumber}
+        <RiskBoardInfo reinforceTroops={riskGame.currentReinforcementTroopsNumber}
                        colors={colors}
+                       riskGame={riskGame}
                        ></RiskBoardInfo>
+        {riskGame.phase === "ATTACK" && !riskGame.needTurnInCards && <button onClick ={endAttack} className="btn btn-primary">End Attack</button>}
+        {riskGame.phase === "FORTIFY" && <button onClick ={endFortify} className="btn btn-primary">End Fortify</button>}
+        {riskGame.phase === "ENDGAME" && <button onClick={startNewGame} className="btn btn-primary"> Start New Game</button>}
+
+
       </div>
       : <></>}
     </>
@@ -64,10 +82,12 @@ function RiskGame(props) {
 const mapStateToProps = state => ({
   riskGame: state.riskGame
 })
-
 RiskGame.propTypes = {
   getRiskGame: PropTypes.func.isRequired,
-  riskGame: PropTypes.object.isRequired
+  riskGame: PropTypes.object.isRequired,
+  endAttack: PropTypes.func.isRequired,
+  endFortify: PropTypes.func.isRequired,
+  startNewGame: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, {getRiskGame})(RiskGame)
+export default connect(mapStateToProps, {getRiskGame, endAttack, endFortify, startNewGame})(RiskGame)
